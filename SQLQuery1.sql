@@ -29,3 +29,30 @@ delete from EmployeeTable where emp_id=103;
 commit 
 rollback
 
+/*constraints*/
+
+create table Bridgelabz
+(
+id int not null,
+name varchar(40) unique,
+age int,
+primary key (id)
+);
+
+insert into Bridgelabz(id,name,age) values (101,'Aditya',25);
+insert into Bridgelabz(id,name,age) values (102,'Priti',23);
+insert into Bridgelabz(id,name,age) values (103,'Kriti',26);
+
+select * from Bridgelabz;
+
+create table Department
+(
+dept_name varchar(40),
+dept_strength int not null,
+id int foreign key references Bridgelabz(id)
+);
+insert into Department (dept_name,dept_strength,id) values ('Mech',100,101);
+insert into Department(dept_name,dept_strength,id) values ('Etc',120,102);
+insert into Department(dept_name,dept_strength,id) values ('EEE',120,103);
+
+select * from Department;
