@@ -119,3 +119,49 @@ select p_name from Product where p_availability in (select p_availability from P
 select p_availability from Product where p_price in (select p_price from Product where p_name='Activa');
 
 select p_price from Product where p_id in(select p_id from Product where p_name='Discover');
+
+
+/*joins*/
+create table Employee1
+(
+id int primary key,
+name varchar(40) not null,
+age int,
+dept varchar(30)
+);
+select * from Employee1;
+insert into Employee1(id,name,age,dept) values(101,'Sudeepta',24,'Mech');
+insert into Employee1(id,name,age,dept) values(102,'Partha',20,'ETC');
+insert into Employee1(id,name,age,dept) values(103,'Pradeep',23,'Science');
+insert into Employee1(id,name,age,dept) values(104,'Pratap',30,'EEE');
+
+
+create table Employee2
+(
+id int primary key,
+name varchar(40) not null,
+age int,
+sal int not null
+);
+select * from Employee1;
+select * from Employee2;
+
+insert into Employee2(id,name,age,sal) values(101,'Pratap',22,20000);
+insert into Employee2(id,name,age,sal) values(102,'prakruti',24,30000);
+insert into Employee2(id,name,age,sal) values(103,'Mahendra',25,60000);
+insert into Employee2(id,name,age,sal) values(104,'Partha',23,50000);
+
+------inner joins----
+select * from Employee1 inner join Employee2 on Employee1.age=Employee2.age;
+
+-------left join------
+select * from Employee1 left join Employee2 on Employee1.name=Employee2.name;
+
+-------Right join-----
+select * from Employee1 right join Employee2 on Employee1.age=Employee2.age;
+
+------Full outer join-------
+select * from Employee1 full outer join Employee2 on Employee1.age=Employee2.age;
+
+-----cross join-------
+select * from Employee1 cross join Employee2;
