@@ -178,8 +178,8 @@ Create table Student
   s_id int not null,
   s_name varchar(40) unique,
   s_age int,
-   cid int foreign key references CourseTable(cid),
-  ct_id int foreign key references CityTable(ct_id),
+  foreign key(cid) references CourseTable(cid),
+  foreign key(ct_id) references CityTable(ct_id),
 )
 select * from Student;
 select * from CourseTable;
@@ -220,3 +220,122 @@ insert into CityTable(ct_id,ct_name) values (3,'Khordha');
 select * from Student s 
 inner join CourseTable cr on s.cid=cr.cid
 inner join CityTable ct on s.cid=ct.ct_id;
+
+
+--------like---------
+
+select * from Student where s_name like 'a%';
+
+select * from Student where s_name like '%n';
+
+select * from Student where s_name like '%ma%';
+
+select * from Student where s_name like 'a_%';
+
+
+-----------Cast and Convert----------
+/*   Cast and convert both are used to change the data type from one to anothe 
+     but only difference is that we can get to change the format as well in convert  */
+
+
+create table City
+(
+id int not null,
+city_name varchar(40) not null
+);
+select * from City;
+
+Insert into City(id,city_name) values (1,'BBSR');
+Insert into City(id,city_name) values (2,'CTC');
+Insert into City(id,city_name) values (1,'Jajpur');
+Insert into City(id,city_name) values (1,'Khordha');
+Insert into City(id,city_name) values (1,'Athagarh');
+
+select id,city_name +'-'+id from City;----this will give error-----
+
+select id, city_name+'-'+cast(id as nvarchar) from City;
+
+SELECT CONVERT(INT,'5678') AS Result;
+
+----------Cascade----------
+--if we are deleting data from Parent table then corresponding records will also be detel as we from Child data on delete cascade---
+--if we are updating data from Parent table then corresponding records will also be updated as we from Child data on update cascade---
+
+CREATE TABLE Countries
+(CountryID INT PRIMARY KEY,
+CountryName VARCHAR(50),
+CountryCode VARCHAR(3))
+ 
+CREATE TABLE States
+(StateID INT PRIMARY KEY,
+StateName VARCHAR(50),
+StateCode VARCHAR(3),
+CountryID INT)
+
+ select * from Countries;
+ select * from States;
+
+INSERT INTO Countries VALUES (1,'United States','USA')
+INSERT INTO Countries VALUES (2,'United Kingdom','UK')
+ 
+INSERT INTO States VALUES (1,'Texas','TX',1)
+INSERT INTO States VALUES (2,'Arizona','AZ',1)
+ 
+ALTER TABLE [dbo].[States]  WITH CHECK ADD  CONSTRAINT [FK_States_Countries] FOREIGN KEY([CountryID])
+REFERENCES [dbo].[Countries] ([CountryID])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[States]  WITH CHECK ADD  CONSTRAINT [FK_States_Countries] FOREIGN KEY([CountryID])
+REFERENCES [dbo].[Countries] ([CountryID])
+ON update CASCADE
+GO
+ 
+ALTER TABLE [dbo].[States] CHECK CONSTRAINT [FK_States_Countries]
+
+delete from Countries where CountryID=1;
+update Countries set CountryCode='Ind';
+ select * from States;
+
+
+ -----------VIEWS------------
+
+ create table Students
+ (
+ id int primary key,
+ name varchar(30) not null,
+ address varchar(30) not null
+ )
+ 
+ select * from Students;
+
+ insert into Students (id,name,address) values(1,'Adi','BBSR');
+ 
+ insert into Students (id,name,address) values(2,'Pravat','CTC');
+ 
+ insert into Students (id,name,address) values(3,'Bijay','Khordha');
+ 
+ insert into Students (id,name,address) values(4,'Puja','Banki');
+
+  --------for single table-----------
+ create view vwDetails1 AS
+ select name,address from Students    
+ where id>1;
+
+
+ create table Marks
+ (
+ id int primary key,
+ mark int not null,
+ );
+ select * from Marks;
+
+ insert into Marks(id,mark) values(1,75);
+ insert into Marks(id,mark) values(2,70);
+ insert into Marks(id,mark) values(3,79);
+ insert into Marks(id,mark) values(4,78);
+
+ ----for multi tables------
+ create view vwDetails2 AS
+ select name,mark from 
+ Students s,Marks m where s.id=m.id;
+
