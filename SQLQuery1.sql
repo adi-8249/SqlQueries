@@ -45,8 +45,10 @@ insert into Bridgelabz(id,name,age) values (103,'Kriti',26);
 
 select * from Bridgelabz;
 
+-------foreign key----------
+
 create table Department
-(                                        -------foreign key----------
+(                                       
 dept_name varchar(40),
 dept_strength int not null,
 id int foreign key references Bridgelabz(id)
@@ -165,3 +167,56 @@ select * from Employee1 full outer join Employee2 on Employee1.age=Employee2.age
 
 -----cross join-------
 select * from Employee1 cross join Employee2;
+
+
+
+
+/*Multi table joins*/
+
+Create table Student
+(
+  s_id int not null,
+  s_name varchar(40) unique,
+  s_age int,
+   cid int foreign key references CourseTable(cid),
+  ct_id int foreign key references CityTable(ct_id),
+)
+select * from Student;
+select * from CourseTable;
+select * from CityTable;
+insert into Student(s_id,s_name,s_age,cid,ct_id) values (1,'Adi',20,2,1);
+insert into Student(s_id,s_name,s_age,cid,ct_id) values (2,'Aman',20,3,2);
+insert into Student(s_id,s_name,s_age,cid,ct_id) values (3,'Amar',20,2,3);
+insert into Student(s_id,s_name,s_age,cid,ct_id) values (4,'Asmit',20,1,1);
+
+---------*****---------------------------
+
+create table CourseTable
+(
+cid int primary key,
+cname varchar(40) not null
+);
+insert into CourseTable(cid,cname) values (1,'HTML');
+insert into CourseTable(cid,cname) values (2,'Css');
+insert into CourseTable(cid,cname) values (3,'Js');
+insert into CourseTable(cid,cname) values (4,'Java');
+
+select * from CourseTable;
+
+-------------****-----------------
+
+create table CityTable
+(
+ct_id int primary key,
+ct_name varchar(30) unique not null
+);
+select * from CityTable;
+
+insert into CityTable(ct_id,ct_name) values (1,'BBSR');
+insert into CityTable(ct_id,ct_name) values (2,'CTC');
+insert into CityTable(ct_id,ct_name) values (3,'Khordha');
+
+
+select * from Student s 
+inner join CourseTable cr on s.cid=cr.cid
+inner join CityTable ct on s.cid=ct.ct_id;
