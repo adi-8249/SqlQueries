@@ -131,12 +131,6 @@ name varchar(40) not null,
 age int,
 dept varchar(30)
 );
-select * from Employee1;
-insert into Employee1(id,name,age,dept) values(101,'Sudeepta',24,'Mech');
-insert into Employee1(id,name,age,dept) values(102,'Partha',20,'ETC');
-insert into Employee1(id,name,age,dept) values(103,'Pradeep',23,'Science');
-insert into Employee1(id,name,age,dept) values(104,'Pratap',30,'EEE');
-
 
 create table Employee2
 (
@@ -145,13 +139,21 @@ name varchar(40) not null,
 age int,
 sal int not null
 );
-select * from Employee1;
-select * from Employee2;
+
+insert into Employee1(id,name,age,dept) values(101,'Sudeepta',24,'Mech');
+insert into Employee1(id,name,age,dept) values(102,'Partha',20,'ETC');
+insert into Employee1(id,name,age,dept) values(103,'Pradeep',23,'Science');
+insert into Employee1(id,name,age,dept) values(104,'Pratap',30,'EEE');
+
 
 insert into Employee2(id,name,age,sal) values(101,'Pratap',22,20000);
 insert into Employee2(id,name,age,sal) values(102,'prakruti',24,30000);
 insert into Employee2(id,name,age,sal) values(103,'Mahendra',25,60000);
 insert into Employee2(id,name,age,sal) values(104,'Partha',23,50000);
+
+select * from Employee1;
+select * from Employee2;
+
 
 ------inner joins----
 select * from Employee1 inner join Employee2 on Employee1.age=Employee2.age;
@@ -181,46 +183,45 @@ Create table Student
   foreign key(cid) references CourseTable(cid),
   foreign key(ct_id) references CityTable(ct_id),
 )
-select * from Student;
-select * from CourseTable;
-select * from CityTable;
-insert into Student(s_id,s_name,s_age,cid,ct_id) values (1,'Adi',20,2,1);
-insert into Student(s_id,s_name,s_age,cid,ct_id) values (2,'Aman',20,3,2);
-insert into Student(s_id,s_name,s_age,cid,ct_id) values (3,'Amar',20,2,3);
-insert into Student(s_id,s_name,s_age,cid,ct_id) values (4,'Asmit',20,1,1);
 
----------*****---------------------------
 
 create table CourseTable
 (
 cid int primary key,
 cname varchar(40) not null
 );
-insert into CourseTable(cid,cname) values (1,'HTML');
-insert into CourseTable(cid,cname) values (2,'Css');
-insert into CourseTable(cid,cname) values (3,'Js');
-insert into CourseTable(cid,cname) values (4,'Java');
 
-select * from CourseTable;
-
--------------****-----------------
 
 create table CityTable
 (
 ct_id int primary key,
 ct_name varchar(30) unique not null
 );
-select * from CityTable;
+
+
+insert into Student(s_id,s_name,s_age,cid,ct_id) values (1,'Adi',20,2,1);
+insert into Student(s_id,s_name,s_age,cid,ct_id) values (2,'Aman',20,3,2);
+insert into Student(s_id,s_name,s_age,cid,ct_id) values (3,'Amar',20,2,3);
+insert into Student(s_id,s_name,s_age,cid,ct_id) values (4,'Asmit',20,1,1);
+
+insert into CourseTable(cid,cname) values (1,'HTML');
+insert into CourseTable(cid,cname) values (2,'Css');
+insert into CourseTable(cid,cname) values (3,'Js');
+insert into CourseTable(cid,cname) values (4,'Java');
 
 insert into CityTable(ct_id,ct_name) values (1,'BBSR');
 insert into CityTable(ct_id,ct_name) values (2,'CTC');
 insert into CityTable(ct_id,ct_name) values (3,'Khordha');
 
 
+select * from Student;
+select * from CourseTable;
+select * from CityTable;
+
+
 select * from Student s 
 inner join CourseTable cr on s.cid=cr.cid
-inner join CityTable ct on s.cid=ct.ct_id;
-
+inner join CityTable ct on s.cid=ct.ct_id
 
 --------like---------
 
@@ -237,19 +238,19 @@ select * from Student where s_name like 'a_%';
 /*   Cast and convert both are used to change the data type from one to anothe 
      but only difference is that we can get to change the format as well in convert  */
 
-
 create table City
 (
 id int not null,
 city_name varchar(40) not null
 );
-select * from City;
 
 Insert into City(id,city_name) values (1,'BBSR');
 Insert into City(id,city_name) values (2,'CTC');
 Insert into City(id,city_name) values (1,'Jajpur');
 Insert into City(id,city_name) values (1,'Khordha');
 Insert into City(id,city_name) values (1,'Athagarh');
+
+select * from City;
 
 select id,city_name +'-'+id from City;----this will give error-----
 
@@ -271,6 +272,9 @@ CREATE TABLE States
 StateName VARCHAR(50),
 StateCode VARCHAR(3),
 CountryID INT)
+
+drop table Countries;
+drop table States;
 
  select * from Countries;
  select * from States;
@@ -305,37 +309,173 @@ update Countries set CountryCode='Ind';
  name varchar(30) not null,
  address varchar(30) not null
  )
- 
- select * from Students;
-
- insert into Students (id,name,address) values(1,'Adi','BBSR');
- 
- insert into Students (id,name,address) values(2,'Pravat','CTC');
- 
- insert into Students (id,name,address) values(3,'Bijay','Khordha');
- 
- insert into Students (id,name,address) values(4,'Puja','Banki');
-
-  --------for single table-----------
- create view vwDetails1 AS
- select name,address from Students    
- where id>1;
-
 
  create table Marks
  (
  id int primary key,
  mark int not null,
  );
- select * from Marks;
+ 
+ insert into Students (id,name,address) values(1,'Adi','BBSR');
+ insert into Students (id,name,address) values(2,'Pravat','CTC');
+ insert into Students (id,name,address) values(3,'Bijay','Khordha');
+ insert into Students (id,name,address) values(4,'Puja','Banki');
+
 
  insert into Marks(id,mark) values(1,75);
  insert into Marks(id,mark) values(2,70);
  insert into Marks(id,mark) values(3,79);
  insert into Marks(id,mark) values(4,78);
 
- ----for multi tables------
- create view vwDetails2 AS
+  select * from vwDetails1;
+ select * from vwDetails2;
+
+ select * from Students;
+ select * from Marks;
+
+ drop view vwDetails1;
+  drop view vwDetails2;
+
+  --------for single table-----------
+ create view vwDetails1 AS
+ select name,address from Students    
+ where id>1;
+
+ -----for multi table---------
  select name,mark from 
  Students s,Marks m where s.id=m.id;
+
+ ----------------Derived table--------------
+
+ create table Employee3
+ (
+ id int not null,
+ name varchar(30) not null,
+ age int,
+ sal int not null,
+ dept varchar(30) not null
+ )
+
+ insert into Employee3 (id,name,age,sal,dept) values (1,'Prajyot',25,50000,'IT');
+ insert into Employee3 (id,name,age,sal,dept) values (2,'Debasis',35,40000,'Mech');
+ insert into Employee3 (id,name,age,sal,dept) values (3,'Sachin',33,45000,'IT');
+ insert into Employee3 (id,name,age,sal,dept) values (4,'Jyoti',26,23000,'IT');
+ insert into Employee3 (id,name,age,sal,dept) values (5,'Ajay',29,60000,'ETC');
+
+ select * from Employee3;
+
+ select * from
+ (select id,name,age,sal,dept from Employee3)
+ AS CEmployee where sal>40000;
+
+
+ select * from
+ (select id,name,age,sal,dept from Employee3)
+ AS BEmployee where age>30;
+
+
+ select * from
+ (select id,name,sal,dept from Employee3)
+ AS AEmployee where dept='IT';
+
+
+ --------------Function-------------
+
+ Create table Country
+ (
+ Cid int primary key,
+ Cname varchar(30) not null,
+ Population int,
+ year int
+ )
+
+ insert into Country(Cid,Cname,Population,year) values (1,'India',50000,1990);
+  insert into Country(Cid,Cname,Population,year) values (2,'USA',40000,1992);
+   insert into Country(Cid,Cname,Population,year) values (3,'Nepal',300000,1992);
+    insert into Country(Cid,Cname,Population,year) values (4,'India',70000,1995);
+	 insert into Country(Cid,Cname,Population,year) values (5,'Nepal',60000,1995);
+
+
+ select * from Country;
+
+	 select SUM(Population) as Total_Population,
+	        AVG(Population) as AvgPopulation,
+			MAX(Population) as MaxPopulation,
+			MIN(Population) as MinPopulation,
+			count(*) as NumberOfColumn
+	 from Country;
+
+
+	 select Cname, year,count(*) as TotalPopulation
+	 from Country
+	 group by Cname,year
+	 order by count(*) desc ;
+
+
+
+----------------------StoreProcedure----------------------------------------
+
+create table Student2
+(
+sid int primary key,
+sname varchar(40) not null,
+age int,
+gender varchar(2) not null
+)
+
+insert into Student2(sid,sname,age,gender) values (101,'Ajay',25,'m');
+insert into Student2(sid,sname,age,gender) values (102,'Raja',26,'m');
+insert into Student2(sid,sname,age,gender) values (103,'Rani',24,'f');
+insert into Student2(sid,sname,age,gender) values (104,'Praja',26,'m');
+insert into Student2(sid,sname,age,gender) values (105,'Mantri',25,'m');
+
+select * from Student2;
+
+create procedure spStudent2
+AS
+BEGIN
+ select * from Student2 where sid=104;
+ select * from Student2 where sname='Rani';
+END
+
+spStudent2;
+exec spStudent2;
+
+drop procedure spStudent2;
+
+-----if we want to add more queries then we have t0 give alter query and chnge the store procedure name as well------- 
+Alter procedure spStudent2
+AS
+BEGIN
+ select * from Student2 where sid=104;
+ select * from Student2 where sname='Rani';
+ select sname from Student2 where age>25;
+END
+
+
+---------here we can pass the value while executing the StoreProcedure--------
+Alter procedure spStudent2
+@s_id int,
+@s_name varchar(100)
+AS
+BEGIN
+ select * from Student2 where sid=@s_id;
+ select * from Student2 where sname=@s_name;
+END
+
+spStudent2 102,'Praja';
+spStudent2 @s_id=102,@s_name='Rani';
+
+----------------here default value will be over ridden while we are passing again them----------
+Alter procedure spStudent2
+@s_id int=105,
+@s_name varchar(100)='Ajay'
+AS
+BEGIN
+ select * from Student2 where sid=@s_id;
+ select * from Student2 where sname=@s_name;
+END
+
+spStudent2 102,'Rani';
+
 
